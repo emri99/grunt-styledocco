@@ -24,6 +24,7 @@ module.exports = (grunt) ->
       name: "Styledocco"
       cmd: "styledocco"
       include: null
+      exclude: null
       preprocessor: null
     )
 
@@ -39,6 +40,13 @@ module.exports = (grunt) ->
       args.push "--name", options.name if options.name?
       args.push "--preprocessor", options.preprocessor  if options.preprocessor?
       args.push "--verbose" if options.verbose?
+      args.push "--theme", options.theme if options.theme?
+      args.push "--isolate" if options.isolate?
+      args.push "--only", options.only if options.only?
+
+      if options.exclude?
+        options.exclude.forEach (value) ->
+          args.push "--exclude", value
 
       if options.include?
         options.include.forEach (value) ->
