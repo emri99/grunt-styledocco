@@ -8,6 +8,8 @@ Licensed under the MIT license.
 module.exports = (grunt) ->
   "use strict"
 
+  spawn = require('cross-spawn')
+
   # Please see the grunt documentation for more information regarding task and
   # helper creation: https://github.com/cowboy/grunt/blob/master/docs/toc.md
 
@@ -42,14 +44,7 @@ module.exports = (grunt) ->
         options.include.forEach (value) ->
           args.push "--include", value
 
-      putInfo = (error, result, code) ->
-        if error isnt null
-          grunt.log.error error
-          grunt.log.error "Code: " + code
-        else
-          grunt.log.write result
-        done()
-
-      grunt.util.spawn command, putInfo
+      process = spawn command.cmd, command.args, { stdio: 'inherit' }
       grunt.verbose.ok "`styledocco " + command.args.join(" ") + "` was initiated."
 
+      process.on "close", (code) -> done()

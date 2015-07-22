@@ -49,6 +49,7 @@
     "css"
   ],
   "dependencies": {
+    "cross-spawn": "^2.0.0",
     "styledocco": "^0.6.6"
   }
 }
